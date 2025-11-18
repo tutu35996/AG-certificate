@@ -82,7 +82,7 @@ class CertificateGenerator {
     };
     this.uidDefaults = {
       standard: { x: 843, y: 780, size: 46 },
-      signal: { x: 843, y: 795, size: 54 }
+      signal: { x: 825, y: 795, size: 54 }
     };
     
     // 拖拽状态
