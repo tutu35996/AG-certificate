@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'TheSeasonsBoldItalic';
+  src: url('../fonts/the-seasons-bold-italic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -176,6 +184,40 @@ body {
   margin-top: 8px;
 }
 
+.move-buttons {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.dir-btn {
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #4c51bf, #6b46c1);
+}
+
+.value-display {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  color: #2d3748;
+}
+
+.value-display span {
+  background: #edf2f7;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.value-display strong {
+  font-size: 13px;
+  color: #2b6cb0;
+}
+
 .upload-tip {
   color: #718096;
   font-size: 12px;
@@ -221,15 +263,18 @@ body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  overflow: auto;
   max-width: 100%;
+  max-height: 85vh;
+  padding: 10px;
 }
 
 canvas {
   border-radius: 8px;
   display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: 50%;
+  height: 50% !important;
+  aspect-ratio: 1152 / 2048;
 }
 
 .input-row {
@@ -288,6 +333,7 @@ button:hover {
   padding: 10px;
   border-radius: 8px;
   border-left: 4px solid #667eea;
+  white-space: pre-line;
 }
 
 .download-btn {

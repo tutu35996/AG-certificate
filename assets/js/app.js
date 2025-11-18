@@ -1,9 +1,11 @@
-// DCG证书生成器 v2.0 - 主要JavaScript逻辑
+// ag证书生成器 v2.0 - 主要JavaScript逻辑
 
 class CertificateGenerator {
   constructor() {
     this.canvas = document.getElementById('certificateCanvas');
     this.ctx = this.canvas.getContext('2d');
+    this.canvas.width = 1152;
+    this.canvas.height = 2048;
     this.nameInput = document.getElementById('nameInput');
     this.uidInput = document.getElementById('uidInput');
     this.avatarUpload = document.getElementById('avatarUpload');
@@ -11,111 +13,73 @@ class CertificateGenerator {
     this.loadingOverlay = document.getElementById('loadingOverlay');
     this.errorOverlay = document.getElementById('errorOverlay');
     this.retryBtn = document.getElementById('retryBtn');
+    this.fontFamily = 'TheSeasonsBoldItalic';
+    this.valueEls = {
+      avatar: {
+        x: document.getElementById('avatarXValue'),
+        y: document.getElementById('avatarYValue'),
+        size: document.getElementById('avatarSizeValue')
+      },
+      name: {
+        x: document.getElementById('nameXValue'),
+        y: document.getElementById('nameYValue'),
+        size: document.getElementById('nameSizeValue')
+      },
+      uid: {
+        x: document.getElementById('uidXValue'),
+        y: document.getElementById('uidYValue'),
+        size: document.getElementById('uidSizeValue')
+      }
+    };
     
     // 模板配置
+    this.signalVariantNames = {
+      english: '英语',
+      polish: '波兰语',
+      spanish: '西班牙语',
+      ukrainian: '乌克兰语',
+      georgian: '格鲁吉亚语',
+      portuguese: '葡萄牙语',
+      romanian: '罗马尼亚语',
+      armenian: '亚美尼亚语'
+    };
     this.templates = {
-      english: {
-        1: "templates/english/English_VIP1.png",
-        2: "templates/english/English_VIP2.png", 
-        3: "templates/english/English_VIP3.png",
-        4: "templates/english/English_VIP4.png",
-        5: "templates/english/English_VIP5.png"
-      },
-      armenian: {
-        1: "templates/armenian/Armenian_VIP1.png",
-        2: "templates/armenian/Armenian_VIP2.png",
-        3: "templates/armenian/Armenian_VIP3.png", 
-        4: "templates/armenian/Armenian_VIP4.png",
-        5: "templates/armenian/Armenian_VIP5.png"
-      },
-      hungarian: {
-        1: "templates/hungarian/Hungarian_VIP1.png",
-        2: "templates/hungarian/Hungarian_VIP2.png",
-        3: "templates/hungarian/Hungarian_VIP3.png",
-        4: "templates/hungarian/Hungarian_VIP4.png", 
-        5: "templates/hungarian/Hungarian_VIP5.png"
-      },
-      spanish: {
-        1: "templates/spanish/Spanish_VIP1.png",
-        2: "templates/spanish/Spanish_VIP2.png",
-        3: "templates/spanish/Spanish_VIP3.png",
-        4: "templates/spanish/Spanish_VIP4.png",
-        5: "templates/spanish/Spanish_VIP5.png"
-      },
-      ukrainian: {
-        1: "templates/ukrainian/Ukrainian_VIP1.png", 
-        2: "templates/ukrainian/Ukrainian_VIP2.png",
-        3: "templates/ukrainian/Ukrainian_VIP3.png",
-        4: "templates/ukrainian/Ukrainian_VIP4.png",
-        5: "templates/ukrainian/Ukrainian_VIP5.png"
-      },
-      french: {
-        1: "templates/french/French_VIP1.png",
-        2: "templates/french/French_VIP2.png", 
-        3: "templates/french/French_VIP3.png",
-        4: "templates/french/French_VIP4.png",
-        5: "templates/french/French_VIP5.png"
-      },
-      russian: {
-        1: "templates/russian/Russian_VIP1.png",
-        2: "templates/russian/Russian_VIP2.png",
-        3: "templates/russian/Russian_VIP3.png",
-        4: "templates/russian/Russian_VIP4.png",
-        5: "templates/russian/Russian_VIP5.png"
-      },
-      bulgarian: {
-        1: "templates/bulgarian/Bulgarian_VIP1.png",
-        2: "templates/bulgarian/Bulgarian_VIP2.png",
-        3: "templates/bulgarian/Bulgarian_VIP3.png", 
-        4: "templates/bulgarian/Bulgarian_VIP4.png",
-        5: "templates/bulgarian/Bulgarian_VIP5.png"
-      },
-      romanian: {
-        1: "templates/romanian/Romanian_VIP1.png",
-        2: "templates/romanian/Romanian_VIP2.png",
-        3: "templates/romanian/Romanian_VIP3.png",
-        4: "templates/romanian/Romanian_VIP4.png",
-        5: "templates/romanian/Romanian_VIP5.png"
-      },
-      portuguese: {
-        1: "templates/portuguese/Portuguese_VIP1.png",
-        2: "templates/portuguese/Portuguese_VIP2.png",
-        3: "templates/portuguese/Portuguese_VIP3.png",
-        4: "templates/portuguese/Portuguese_VIP4.png",
-        5: "templates/portuguese/Portuguese_VIP5.png"
-      },
-      croatian: {
-        1: "templates/croatian/Croatian_VIP1.png",
-        2: "templates/croatian/Croatian_VIP2.png",
-        3: "templates/croatian/Croatian_VIP3.png",
-        4: "templates/croatian/Croatian_VIP4.png",
-        5: "templates/croatian/Croatian_VIP5.png"
-      },
-      slovak: {
-        1: "templates/slovak/Slovak_VIP1.png",
-        2: "templates/slovak/Slovak_VIP2.png",
-        3: "templates/slovak/Slovak_VIP3.png",
-        4: "templates/slovak/Slovak_VIP4.png",
-        5: "templates/slovak/Slovak_VIP5.png"
-      }
+      signal_rewards: this.buildSignalRewardSet(),
+      english: this.buildVipSet('english', 'English'),
+      french: this.buildVipSet('french', 'French'),
+      french_half: this.buildVipSet('french_half', 'FrenchHalf'),
+      arabic: this.buildVipSet('arabic', 'Arabic'),
+      vietnamese: this.buildVipSet('vietnamese', 'Vietnamese'),
+      armenian: this.buildVipSet('armenian', 'Armenian'),
+      spanish: this.buildVipSet('spanish', 'Spanish'),
+      turkish: this.buildVipSet('turkish', 'Turkish'),
+      ukrainian: this.buildVipSet('ukrainian', 'Ukrainian'),
+      persian: this.buildVipSet('persian', 'Persian'),
+      romanian: this.buildVipSet('romanian', 'Romanian'),
+      georgian: this.buildVipSet('georgian', 'Georgian'),
+      portuguese: this.buildVipSet('portuguese', 'Portuguese')
     };
     
     // 当前状态
     this.template = new Image();
-    this.currentCountry = 'armenian';
-    this.currentVip = 1;
+    this.currentCountry = 'english';
+    this.currentVip = '1';
     this.avatar = null;
     
     // 位置和大小参数
-    this.avatarX = 77;
-    this.avatarY = 188;
-    this.avatarSize = 240;
-    this.nameX = 358;
-    this.nameY = 198;
-    this.nameSize = 72;
-    this.uidX = 140;
-    this.uidY = 480;  // 还原到原始位置
-    this.uidSize = 40;  // 修改为36px
+    this.avatarX = 81;
+    this.avatarY = 665;
+    this.avatarSize = 290;
+    this.nameX = 618;
+    this.nameY = 751;
+    this.nameSize = 66;
+    this.uidX = 843;
+    this.uidY = 780;
+    this.uidSize = 46;
+    this.uidDefaults = {
+      standard: { x: 843, y: 780, size: 46 },
+      signal: { x: 843, y: 795, size: 54 }
+    };
     
     // 拖拽状态
     this.dragging = null;
@@ -123,6 +87,29 @@ class CertificateGenerator {
     this.offsetY = 0;
     
     this.init();
+  }
+
+  buildVipSet(folder, displayName) {
+    return {
+      1: `templates/${folder}/${displayName}_VIP1.png`,
+      2: `templates/${folder}/${displayName}_VIP2.png`,
+      3: `templates/${folder}/${displayName}_VIP3.png`,
+      4: `templates/${folder}/${displayName}_VIP4.png`,
+      5: `templates/${folder}/${displayName}_VIP5.png`
+    };
+  }
+  
+  buildSignalRewardSet() {
+    return {
+      english: "templates/signal_rewards/Signal_English.png",
+      polish: "templates/signal_rewards/Signal_Polish.png",
+      spanish: "templates/signal_rewards/Signal_Spanish.png",
+      ukrainian: "templates/signal_rewards/Signal_Ukrainian.png",
+      georgian: "templates/signal_rewards/Signal_Georgian.png",
+      portuguese: "templates/signal_rewards/Signal_Portuguese.png",
+      romanian: "templates/signal_rewards/Signal_Romanian.png",
+      armenian: "templates/signal_rewards/Signal_Armenian.png"
+    };
   }
   
   init() {
@@ -161,12 +148,23 @@ class CertificateGenerator {
     this.canvas.addEventListener('mousedown', (e) => this.startDrag(e));
     this.canvas.addEventListener('mousemove', (e) => this.duringDrag(e));
     this.canvas.addEventListener('mouseup', () => this.stopDrag());
+    this.canvas.addEventListener('mouseleave', () => this.stopDrag());
     
     // 大小调整按钮
-    document.getElementById('nameBigger').onclick = () => { this.nameSize += 2; this.drawAll(); };
-    document.getElementById('nameSmaller').onclick = () => { this.nameSize -= 2; this.drawAll(); };
-    document.getElementById('uidBigger').onclick = () => { this.uidSize += 2; this.drawAll(); };
-    document.getElementById('uidSmaller').onclick = () => { this.uidSize -= 2; this.drawAll(); };
+    document.getElementById('nameBigger').onclick = () => { this.nameSize = Math.min(this.nameSize + 4, 200); this.drawAll(); };
+    document.getElementById('nameSmaller').onclick = () => { this.nameSize = Math.max(this.nameSize - 4, 24); this.drawAll(); };
+    document.getElementById('uidBigger').onclick = () => { this.uidSize = Math.min(this.uidSize + 2, 160); this.drawAll(); };
+    document.getElementById('uidSmaller').onclick = () => { this.uidSize = Math.max(this.uidSize - 2, 24); this.drawAll(); };
+    document.getElementById('avatarBigger').onclick = () => { this.resizeAvatar(10); };
+    document.getElementById('avatarSmaller').onclick = () => { this.resizeAvatar(-10); };
+    document.querySelectorAll('.dir-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        const dx = parseInt(btn.dataset.dx) || 0;
+        const dy = parseInt(btn.dataset.dy) || 0;
+        this.moveElement(target, dx, dy);
+      });
+    });
     
     // 下载功能
     document.getElementById('downloadBtn').onclick = () => this.downloadCertificate();
@@ -182,25 +180,25 @@ class CertificateGenerator {
     this.nameInput.addEventListener('input', () => this.drawAll());
     this.uidInput.addEventListener('input', () => this.drawAll());
     
-    // 默认选择第一个模板并展开第一个国家
-    document.addEventListener('DOMContentLoaded', () => {
-      // 默认展开第一个国家
-      const firstCountry = document.querySelector('.country-title');
-      if (firstCountry) {
-        const country = firstCountry.dataset.country;
-        const vipGrid = document.querySelector(`.vip-grid[data-country="${country}"]`);
-        if (vipGrid) {
-          vipGrid.classList.add('expanded');
-          firstCountry.classList.remove('collapsed');
-        }
+    this.expandDefaultPanel();
+  }
+
+  expandDefaultPanel() {
+    const targetTitle = document.querySelector(`.country-title[data-country="${this.currentCountry}"]`) || document.querySelector('.country-title');
+    if (targetTitle) {
+      const country = targetTitle.dataset.country;
+      const vipGrid = document.querySelector(`.vip-grid[data-country="${country}"]`);
+      if (vipGrid) {
+        vipGrid.classList.add('expanded');
+        targetTitle.classList.remove('collapsed');
       }
-      
-      // 默认选择第一个VIP按钮
-      const firstBtn = document.querySelector('.vip-btn');
-      if (firstBtn) {
-        firstBtn.classList.add('active');
-      }
-    });
+    }
+
+    const targetBtn = document.querySelector(`.vip-btn[data-country="${this.currentCountry}"][data-vip="${this.currentVip}"]`)
+      || document.querySelector('.vip-btn');
+    if (targetBtn) {
+      targetBtn.classList.add('active');
+    }
   }
   
   toggleCountry(clickedTitle) {
@@ -232,10 +230,26 @@ class CertificateGenerator {
     
     // 更新当前选择
     this.currentCountry = btn.dataset.country;
-    this.currentVip = parseInt(btn.dataset.vip);
+    this.currentVip = btn.dataset.vip;
+    this.applyTemplateDefaults();
     
     // 加载新模板
     this.loadTemplate();
+  }
+  
+  applyTemplateDefaults() {
+    if (this.currentCountry === 'signal_rewards') {
+      this.setUidDefaults(this.uidDefaults.signal);
+    } else {
+      this.setUidDefaults(this.uidDefaults.standard);
+    }
+  }
+
+  setUidDefaults(config) {
+    if (!config) return;
+    this.uidX = config.x;
+    this.uidY = config.y;
+    this.uidSize = config.size;
   }
   
   loadTemplate() {
@@ -243,9 +257,13 @@ class CertificateGenerator {
     this.hideError();
     this.showLoading();
     
-    const templatePath = this.templates[this.currentCountry][this.currentVip];
-    this.template.src = templatePath;
-    
+    const templateMap = this.templates[this.currentCountry];
+    const templatePath = templateMap ? templateMap[this.currentVip] : null;
+    if (!templatePath) {
+      this.hideLoading();
+      this.showError();
+      return;
+    }
     this.template.onload = () => {
       this.hideLoading();
       this.drawAll();
@@ -256,6 +274,8 @@ class CertificateGenerator {
       this.hideLoading();
       this.showError();
     };
+
+    this.template.src = templatePath;
   }
   
   showLoading() {
@@ -315,7 +335,12 @@ class CertificateGenerator {
   
   drawAll() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.drawImage(this.template, 0, 0, 1280, 800);
+    if (this.template && this.template.complete && this.template.naturalWidth > 0) {
+      this.ctx.drawImage(this.template, 0, 0, this.canvas.width, this.canvas.height);
+    } else {
+      this.ctx.fillStyle = '#0f172a';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
 
     // 绘制头像（圆形裁切 + object-fit: cover 居中填充）
     if (this.avatar) {
@@ -354,7 +379,8 @@ class CertificateGenerator {
 
     // 绘制姓名：白色字体 + 黑色阴影 + 白色光晕
     this.ctx.save();
-    this.ctx.font = `${this.nameSize}px sans-serif`;
+    this.ctx.font = this.getFont(this.nameSize);
+    this.ctx.textAlign = 'center';
     this.ctx.fillStyle = "white";
     this.ctx.shadowColor = "black";
     this.ctx.shadowOffsetX = 3;
@@ -372,7 +398,7 @@ class CertificateGenerator {
 
     // 绘制 UID：白色字体 + 黑色阴影
     this.ctx.save();
-    this.ctx.font = `${this.uidSize}px sans-serif`;
+    this.ctx.font = this.getFont(this.uidSize);
     this.ctx.fillStyle = "white";
     this.ctx.shadowColor = "black";
     this.ctx.shadowOffsetX = 3;
@@ -383,28 +409,59 @@ class CertificateGenerator {
 
     // 更新坐标显示
     this.updateCoordsDisplay();
+    this.updateValueDisplays();
   }
   
   updateCoordsDisplay() {
     const countryNames = {
-      'english': '英语',
-      'armenian': '亚美尼亚语',
-      'hungarian': '匈牙利语',
-      'spanish': '西班牙语',
-      'ukrainian': '乌克兰语',
-      'french': '法语',
-      'russian': '俄语',
-      'bulgarian': '保加利亚语',
-      'romanian': '罗马尼亚语',
-      'portuguese': '葡萄牙语',
-      'croatian': '克罗地亚语',
-      'slovak': '斯洛伐克语'
+      signal_rewards: '信号奖励',
+      english: '英语',
+      french: '法语',
+      french_half: '法语（减半）',
+      arabic: '阿拉伯语',
+      vietnamese: '越南语',
+      armenian: '亚美尼亚语',
+      spanish: '西班牙语',
+      turkish: '土耳其语',
+      ukrainian: '乌克兰语',
+      persian: '波斯语',
+      romanian: '罗马尼亚语',
+      georgian: '格鲁吉亚语',
+      portuguese: '葡萄牙语'
     };
     
     const countryName = countryNames[this.currentCountry] || this.currentCountry;
+    const isSignal = this.currentCountry === 'signal_rewards';
+    const variantLabel = isSignal
+      ? (this.signalVariantNames[this.currentVip] || this.currentVip)
+      : `VIP${this.currentVip}`;
     
-    this.coordsDisplay.textContent = 
-      `当前模板: ${countryName} VIP${this.currentVip} | 姓名: (${Math.round(this.nameX)}, ${Math.round(this.nameY)}, ${Math.round(this.nameSize)}) | UID: (${Math.round(this.uidX)}, ${Math.round(this.uidY)}, ${Math.round(this.uidSize)}) | 头像: (${Math.round(this.avatarX)}, ${Math.round(this.avatarY)}, ${Math.round(this.avatarSize)})`;
+    this.coordsDisplay.textContent =
+      `当前模板：${countryName} ${variantLabel}\n` +
+      `头像：X=${Math.round(this.avatarX)} Y=${Math.round(this.avatarY)} 尺寸=${Math.round(this.avatarSize)}\n` +
+      `姓名：X=${Math.round(this.nameX)} Y=${Math.round(this.nameY)} 字号=${Math.round(this.nameSize)}\n` +
+      `UID：X=${Math.round(this.uidX)} Y=${Math.round(this.uidY)} 字号=${Math.round(this.uidSize)}`;
+  }
+
+  updateValueDisplays() {
+    const format = (value) => Math.round(value);
+    const setText = (el, value) => { if (el) el.textContent = format(value); };
+
+    if (this.valueEls.avatar) {
+      setText(this.valueEls.avatar.x, this.avatarX);
+      setText(this.valueEls.avatar.y, this.avatarY);
+      setText(this.valueEls.avatar.size, this.avatarSize);
+    }
+    if (this.valueEls.name) {
+      setText(this.valueEls.name.x, this.nameX);
+      setText(this.valueEls.name.y, this.nameY);
+      setText(this.valueEls.name.size, this.nameSize);
+    }
+    if (this.valueEls.uid) {
+      setText(this.valueEls.uid.x, this.uidX);
+      setText(this.valueEls.uid.y, this.uidY);
+      setText(this.valueEls.uid.size, this.uidSize);
+    }
   }
   
   startDrag(e) {
@@ -412,19 +469,29 @@ class CertificateGenerator {
     const mouseY = e.offsetY;
     
     // 计算文本宽度
-    this.ctx.font = `${this.nameSize}px sans-serif`;
-    const nameWidth = this.ctx.measureText(this.nameInput.value).width;
-    this.ctx.font = `${this.uidSize}px sans-serif`;
+    this.ctx.font = this.getFont(this.nameSize);
+    const nameWidth = this.ctx.measureText(this.nameInput.value || '姓名').width;
+    const nameHalf = nameWidth / 2;
+    this.ctx.font = this.getFont(this.uidSize);
     const uidWidth = this.ctx.measureText(this.uidInput.value).width || 50; // 如果为空，给一个默认宽度
     
     // 检查姓名区域
-    const nameHit = mouseX > this.nameX && mouseX < this.nameX + nameWidth && mouseY < this.nameY && mouseY > this.nameY - this.nameSize;
+    const nameHit =
+      mouseX > this.nameX - nameHalf &&
+      mouseX < this.nameX + nameHalf &&
+      mouseY < this.nameY &&
+      mouseY > this.nameY - this.nameSize;
     
     // 检查UID区域 - 使用简化的固定区域检测
     const uidHit = mouseX > this.uidX - 30 && mouseX < this.uidX + 200 && mouseY > this.uidY - 50 && mouseY < this.uidY + 20;
     
-    // 检查是否点击在文本区域内（不包含头像）
-    if (nameHit) {
+    const avatarCenterX = this.avatarX + this.avatarSize / 2;
+    const avatarCenterY = this.avatarY + this.avatarSize / 2;
+    const avatarHit = Math.hypot(mouseX - avatarCenterX, mouseY - avatarCenterY) <= this.avatarSize / 2;
+
+    if (avatarHit) {
+      this.dragging = 'avatar';
+    } else if (nameHit) {
       this.dragging = 'name';
     } else if (uidHit) {
       this.dragging = 'uid';
@@ -440,13 +507,20 @@ class CertificateGenerator {
     const dx = e.offsetX - this.offsetX;
     const dy = e.offsetY - this.offsetY;
     
+    if (this.dragging === 'avatar') {
+      this.avatarX += dx;
+      this.avatarY += dy;
+      this.clampAvatar();
+    }
     if (this.dragging === 'name') { 
       this.nameX += dx; 
       this.nameY += dy; 
+      this.clampText('name');
     }
     if (this.dragging === 'uid') { 
       this.uidX += dx; 
       this.uidY += dy; 
+      this.clampText('uid');
     }
     
     this.offsetX = e.offsetX;
@@ -459,10 +533,92 @@ class CertificateGenerator {
   }
   
   downloadCertificate() {
-    const link = document.createElement('a');
-    link.download = `DCG证书_${this.currentCountry.toUpperCase()}_VIP${this.currentVip}.png`;
-    link.href = this.canvas.toDataURL('image/png');
-    link.click();
+    if (this.loadingOverlay && !this.loadingOverlay.classList.contains('hidden')) {
+      alert('模板仍在加载中，请稍候再试');
+      return;
+    }
+    if (this.errorOverlay && !this.errorOverlay.classList.contains('hidden')) {
+      alert('模板加载失败，无法生成证书，请先重新加载模板');
+      return;
+    }
+
+    this.drawAll();
+
+    this.canvas.toBlob((blob) => {
+      if (!blob) {
+        alert('生成图片失败，请重试');
+        return;
+      }
+      
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = this.getDownloadFilename();
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  }
+
+  resizeAvatar(delta) {
+    this.avatarSize = Math.min(Math.max(this.avatarSize + delta, 80), Math.min(this.canvas.width, this.canvas.height));
+    this.clampAvatar();
+    this.drawAll();
+  }
+
+  clampAvatar() {
+    this.avatarX = Math.min(Math.max(this.avatarX, 0), this.canvas.width - this.avatarSize);
+    this.avatarY = Math.min(Math.max(this.avatarY, 0), this.canvas.height - this.avatarSize);
+  }
+
+  clampText(type) {
+    const padding = 20;
+    const isName = type === 'name';
+    const fontSize = isName ? this.nameSize : this.uidSize;
+    const value = isName ? (this.nameInput.value || '姓名') : (this.uidInput.value || 'UID');
+    this.ctx.font = this.getFont(fontSize);
+    const width = Math.max(this.ctx.measureText(value).width, 120);
+    const halfWidth = width / 2;
+    const maxX = this.canvas.width - width - padding;
+    const minY = fontSize;
+    if (isName) {
+      this.nameX = Math.min(Math.max(this.nameX, halfWidth + padding), this.canvas.width - halfWidth - padding);
+      this.nameY = Math.min(Math.max(this.nameY, minY), this.canvas.height - padding);
+    } else {
+      this.uidX = Math.min(Math.max(this.uidX, padding), maxX);
+      this.uidY = Math.min(Math.max(this.uidY, minY), this.canvas.height - padding);
+    }
+  }
+
+  moveElement(target, dx, dy) {
+    if (target === 'avatar') {
+      this.avatarX += dx;
+      this.avatarY += dy;
+      this.clampAvatar();
+    } else if (target === 'name') {
+      this.nameX += dx;
+      this.nameY += dy;
+      this.clampText('name');
+    } else if (target === 'uid') {
+      this.uidX += dx;
+      this.uidY += dy;
+      this.clampText('uid');
+    }
+    this.drawAll();
+  }
+
+  getFont(size) {
+    return `${size}px "${this.fontFamily}", sans-serif`;
+  }
+
+  getDownloadFilename() {
+    const countryCode = this.currentCountry.toUpperCase();
+    if (this.currentCountry === 'signal_rewards') {
+      const variant = (this.currentVip || '').toUpperCase();
+      return `ag证书_${countryCode}_SIGNAL_${variant}.png`;
+    }
+    return `ag证书_${countryCode}_VIP${this.currentVip}.png`;
   }
 }
 

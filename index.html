@@ -3,13 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DCG证书生成器 v2.0</title>
+<title>ag证书生成器 v2.0</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
 <div class="sidebar">
   <h2>🌍 选择模板</h2>
+  
+  <div class="country-section special">
+    <div class="country-title" data-country="signal_rewards">📡 信号奖励 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="signal_rewards">
+      <div class="vip-btn" data-country="signal_rewards" data-vip="english">英语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="polish">波兰语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="spanish">西班牙语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="ukrainian">乌克兰语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="georgian">格鲁吉亚语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="portuguese">葡萄牙语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="romanian">罗马尼亚语</div>
+      <div class="vip-btn" data-country="signal_rewards" data-vip="armenian">亚美尼亚语</div>
+    </div>
+  </div>
   
   <div class="country-section">
     <div class="country-title" data-country="english">🇬🇧 英语 <span class="expand-icon">▼</span></div>
@@ -21,51 +35,7 @@
       <div class="vip-btn" data-country="english" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
-  <div class="country-section">
-    <div class="country-title" data-country="armenian">🇦🇲 亚美尼亚语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="armenian">
-      <div class="vip-btn" data-country="armenian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="armenian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="armenian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="armenian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="armenian" data-vip="5">VIP 5</div>
-    </div>
-  </div>
-  
-  <div class="country-section">
-    <div class="country-title" data-country="hungarian">🇭🇺 匈牙利语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="hungarian">
-      <div class="vip-btn" data-country="hungarian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="hungarian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="hungarian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="hungarian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="hungarian" data-vip="5">VIP 5</div>
-    </div>
-  </div>
-  
-  <div class="country-section">
-    <div class="country-title" data-country="spanish">🇪🇸 西班牙语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="spanish">
-      <div class="vip-btn" data-country="spanish" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="spanish" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="spanish" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="spanish" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="spanish" data-vip="5">VIP 5</div>
-    </div>
-  </div>
-  
-  <div class="country-section">
-    <div class="country-title" data-country="ukrainian">🇺🇦 乌克兰语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="ukrainian">
-      <div class="vip-btn" data-country="ukrainian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="ukrainian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="ukrainian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="ukrainian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="ukrainian" data-vip="5">VIP 5</div>
-    </div>
-  </div>
-  
+
   <div class="country-section">
     <div class="country-title" data-country="french">🇫🇷 法语 <span class="expand-icon">▼</span></div>
     <div class="vip-grid" data-country="french">
@@ -76,29 +46,95 @@
       <div class="vip-btn" data-country="french" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
+
   <div class="country-section">
-    <div class="country-title" data-country="russian">🇷🇺 俄语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="russian">
-      <div class="vip-btn" data-country="russian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="russian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="russian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="russian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="russian" data-vip="5">VIP 5</div>
+    <div class="country-title" data-country="french_half">🇫🇷 法语（减半） <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="french_half">
+      <div class="vip-btn" data-country="french_half" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="french_half" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="french_half" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="french_half" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="french_half" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
+
   <div class="country-section">
-    <div class="country-title" data-country="bulgarian">🇧🇬 保加利亚语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="bulgarian">
-      <div class="vip-btn" data-country="bulgarian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="bulgarian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="bulgarian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="bulgarian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="bulgarian" data-vip="5">VIP 5</div>
+    <div class="country-title" data-country="arabic">🇦🇪 阿拉伯语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="arabic">
+      <div class="vip-btn" data-country="arabic" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="arabic" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="arabic" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="arabic" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="arabic" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
+
+  <div class="country-section">
+    <div class="country-title" data-country="vietnamese">🇻🇳 越南语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="vietnamese">
+      <div class="vip-btn" data-country="vietnamese" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="vietnamese" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="vietnamese" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="vietnamese" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="vietnamese" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
+  <div class="country-section">
+    <div class="country-title" data-country="armenian">🇦🇲 亚美尼亚语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="armenian">
+      <div class="vip-btn" data-country="armenian" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="armenian" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="armenian" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="armenian" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="armenian" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
+  <div class="country-section">
+    <div class="country-title" data-country="spanish">🇪🇸 西班牙语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="spanish">
+      <div class="vip-btn" data-country="spanish" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="spanish" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="spanish" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="spanish" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="spanish" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
+  <div class="country-section">
+    <div class="country-title" data-country="turkish">🇹🇷 土耳其语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="turkish">
+      <div class="vip-btn" data-country="turkish" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="turkish" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="turkish" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="turkish" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="turkish" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
+  <div class="country-section">
+    <div class="country-title" data-country="ukrainian">🇺🇦 乌克兰语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="ukrainian">
+      <div class="vip-btn" data-country="ukrainian" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="ukrainian" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="ukrainian" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="ukrainian" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="ukrainian" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
+  <div class="country-section">
+    <div class="country-title" data-country="persian">🇮🇷 波斯语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="persian">
+      <div class="vip-btn" data-country="persian" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="persian" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="persian" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="persian" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="persian" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
   <div class="country-section">
     <div class="country-title" data-country="romanian">🇷🇴 罗马尼亚语 <span class="expand-icon">▼</span></div>
     <div class="vip-grid" data-country="romanian">
@@ -109,7 +145,18 @@
       <div class="vip-btn" data-country="romanian" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
+
+  <div class="country-section">
+    <div class="country-title" data-country="georgian">🇬🇪 格鲁吉亚语 <span class="expand-icon">▼</span></div>
+    <div class="vip-grid" data-country="georgian">
+      <div class="vip-btn" data-country="georgian" data-vip="1">VIP 1</div>
+      <div class="vip-btn" data-country="georgian" data-vip="2">VIP 2</div>
+      <div class="vip-btn" data-country="georgian" data-vip="3">VIP 3</div>
+      <div class="vip-btn" data-country="georgian" data-vip="4">VIP 4</div>
+      <div class="vip-btn" data-country="georgian" data-vip="5">VIP 5</div>
+    </div>
+  </div>
+
   <div class="country-section">
     <div class="country-title" data-country="portuguese">🇵🇹 葡萄牙语 <span class="expand-icon">▼</span></div>
     <div class="vip-grid" data-country="portuguese">
@@ -120,32 +167,10 @@
       <div class="vip-btn" data-country="portuguese" data-vip="5">VIP 5</div>
     </div>
   </div>
-  
-  <div class="country-section">
-    <div class="country-title" data-country="croatian">🇭🇷 克罗地亚语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="croatian">
-      <div class="vip-btn" data-country="croatian" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="croatian" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="croatian" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="croatian" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="croatian" data-vip="5">VIP 5</div>
-    </div>
-  </div>
-
-  <div class="country-section">
-    <div class="country-title" data-country="slovak">🇸🇰 斯洛伐克语 <span class="expand-icon">▼</span></div>
-    <div class="vip-grid" data-country="slovak">
-      <div class="vip-btn" data-country="slovak" data-vip="1">VIP 1</div>
-      <div class="vip-btn" data-country="slovak" data-vip="2">VIP 2</div>
-      <div class="vip-btn" data-country="slovak" data-vip="3">VIP 3</div>
-      <div class="vip-btn" data-country="slovak" data-vip="4">VIP 4</div>
-      <div class="vip-btn" data-country="slovak" data-vip="5">VIP 5</div>
-    </div>
-  </div>
 </div>
 
 <div class="main-content">
-  <h1 class="title">DCG证书生成器 v2.0</h1>
+  <h1 class="title">ag证书生成器 v2.0</h1>
   
   <div class="content-wrapper">
     <!-- 中间控制区域 -->
@@ -161,6 +186,15 @@
             <input type="file" id="avatarUpload" accept="image/*">
             <small class="upload-tip">💡 提示：也可以直接粘贴图片 (Ctrl+V)</small>
           </div>
+          <div class="button-group">
+            <button class="small-btn" id="avatarBigger">放大头像框</button>
+            <button class="small-btn" id="avatarSmaller">缩小头像框</button>
+          </div>
+          <div class="value-display">
+            <span>X: <strong id="avatarXValue">0</strong></span>
+            <span>Y: <strong id="avatarYValue">0</strong></span>
+            <span>直径: <strong id="avatarSizeValue">0</strong></span>
+          </div>
         </div>
         
         <div class="control-section">
@@ -173,6 +207,17 @@
             <button class="small-btn" id="nameBigger">放大姓名</button>
             <button class="small-btn" id="nameSmaller">缩小姓名</button>
           </div>
+          <div class="move-buttons">
+            <button class="dir-btn" data-target="name" data-dx="0" data-dy="-3">↑</button>
+            <button class="dir-btn" data-target="name" data-dx="-3" data-dy="0">←</button>
+            <button class="dir-btn" data-target="name" data-dx="3" data-dy="0">→</button>
+            <button class="dir-btn" data-target="name" data-dx="0" data-dy="3">↓</button>
+          </div>
+          <div class="value-display">
+            <span>X: <strong id="nameXValue">0</strong></span>
+            <span>Y: <strong id="nameYValue">0</strong></span>
+            <span>字号: <strong id="nameSizeValue">0</strong></span>
+          </div>
         </div>
         
         <div class="control-section">
@@ -184,6 +229,17 @@
           <div class="button-group">
             <button class="small-btn" id="uidBigger">放大UID</button>
             <button class="small-btn" id="uidSmaller">缩小UID</button>
+          </div>
+          <div class="move-buttons">
+            <button class="dir-btn" data-target="uid" data-dx="0" data-dy="-3">↑</button>
+            <button class="dir-btn" data-target="uid" data-dx="-3" data-dy="0">←</button>
+            <button class="dir-btn" data-target="uid" data-dx="3" data-dy="0">→</button>
+            <button class="dir-btn" data-target="uid" data-dx="0" data-dy="3">↓</button>
+          </div>
+          <div class="value-display">
+            <span>X: <strong id="uidXValue">0</strong></span>
+            <span>Y: <strong id="uidYValue">0</strong></span>
+            <span>字号: <strong id="uidSizeValue">0</strong></span>
           </div>
         </div>
         
@@ -202,7 +258,7 @@
       <div class="preview-container">
         <h3>🖼️ 证书预览</h3>
         <div id="canvasContainer">
-          <canvas id="certificateCanvas" width="1280" height="800"></canvas>
+          <canvas id="certificateCanvas" width="1152" height="2048"></canvas>
           <!-- 加载动画 -->
           <div id="loadingOverlay" class="loading-overlay">
             <div class="loading-spinner">

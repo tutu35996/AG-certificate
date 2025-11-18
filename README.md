@@ -1,10 +1,10 @@
-# DCG证书生成器 v2.0
+# ag证书生成器 v2.0
 
-一个功能强大的多语言证书生成工具，支持9种语言和5个VIP等级的证书模板。
+一个功能强大的多语言证书生成工具，支持13个语言/版本和5个VIP等级的证书模板，并额外提供信号奖励模板组。
 
 ## 🚀 功能特点
 
-- **多语言支持**: 支持9种语言的证书模板
+- **多语言支持**: 支持13个语言/版本的证书模板 + 信号奖励专用模板组
 - **VIP等级**: 每个语言都有VIP1-VIP5五个等级
 - **实时预览**: 拖拽调整位置和大小
 - **现代化界面**: 响应式设计，支持移动端
@@ -13,7 +13,7 @@
 ## 📁 项目结构
 
 ```
-DCG v2.0/
+ag v2.0/
 ├── index.html              # 主页面
 ├── assets/                 # 资源文件夹
 │   ├── css/
@@ -21,89 +21,44 @@ DCG v2.0/
 │   ├── js/
 │   │   └── app.js          # 主要JavaScript逻辑
 │   └── images/             # 其他图片资源
-├── templates/              # 模板文件夹
+├── templates/              # 模板文件夹（固定13个语言/版本 + 特殊组）
 │   ├── english/            # 英语模板
-│   ├── armenian/           # 亚美尼亚语模板
-│   ├── hungarian/          # 匈牙利语模板
-│   ├── spanish/            # 西班牙语模板
-│   ├── ukrainian/          # 乌克兰语模板
 │   ├── french/             # 法语模板
-│   ├── russian/            # 俄语模板
-│   ├── bulgarian/          # 保加利亚语模板
-│   └── romanian/           # 罗马尼亚语模板
+│   ├── french_half/        # 法语模板（减半版）
+│   ├── signal_rewards/     # 信号奖励模板（按语言子项）
+│   ├── arabic/             # 阿拉伯语模板
+│   ├── vietnamese/         # 越南语模板
+│   ├── armenian/           # 亚美尼亚语模板
+│   ├── spanish/            # 西班牙语模板
+│   ├── turkish/            # 土耳其语模板
+│   ├── ukrainian/          # 乌克兰语模板
+│   ├── persian/            # 波斯语模板
+│   ├── romanian/           # 罗马尼亚语模板
+│   ├── georgian/           # 格鲁吉亚语模板
+│   └── portuguese/         # 葡萄牙语模板
 └── README.md               # 说明文档
 ```
 
 ## 🎨 模板文件命名规范
 
-### 英语模板 (templates/english/)
-- `English_VIP1.png`
-- `English_VIP2.png`
-- `English_VIP3.png`
-- `English_VIP4.png`
-- `English_VIP5.png`
+- 所有模板尺寸统一为 **1152 × 2048 像素**
+- 支持语言固定为：英语、法语、法语（减半版）、阿拉伯语、越南语、亚美尼亚语、西班牙语、土耳其语、乌克兰语、波斯语、罗马尼亚语、格鲁吉亚语、葡萄牙语
+- 信号奖励模板组包含：英语、波兰语、西班牙语、乌克兰语、格鲁吉亚语、葡萄牙语、罗马尼亚语、亚美尼亚语
+- 每种语言必须包含 `VIP1` ~ `VIP5` 共 5 张图片，命名规则：`语言英文名_VIP{等级}.png`
 
-### 亚美尼亚语模板 (templates/armenian/)
-- `Armenian_VIP1.png`
-- `Armenian_VIP2.png`
-- `Armenian_VIP3.png`
-- `Armenian_VIP4.png`
-- `Armenian_VIP5.png`
+示例：
 
-### 匈牙利语模板 (templates/hungarian/)
-- `Hungarian_VIP1.png`
-- `Hungarian_VIP2.png`
-- `Hungarian_VIP3.png`
-- `Hungarian_VIP4.png`
-- `Hungarian_VIP5.png`
-
-### 西班牙语模板 (templates/spanish/)
-- `Spanish_VIP1.png`
-- `Spanish_VIP2.png`
-- `Spanish_VIP3.png`
-- `Spanish_VIP4.png`
-- `Spanish_VIP5.png`
-
-### 乌克兰语模板 (templates/ukrainian/)
-- `Ukrainian_VIP1.png`
-- `Ukrainian_VIP2.png`
-- `Ukrainian_VIP3.png`
-- `Ukrainian_VIP4.png`
-- `Ukrainian_VIP5.png`
-
-### 法语模板 (templates/french/)
-- `French_VIP1.png`
-- `French_VIP2.png`
-- `French_VIP3.png`
-- `French_VIP4.png`
-- `French_VIP5.png`
-
-### 俄语模板 (templates/russian/)
-- `Russian_VIP1.png`
-- `Russian_VIP2.png`
-- `Russian_VIP3.png`
-- `Russian_VIP4.png`
-- `Russian_VIP5.png`
-
-### 保加利亚语模板 (templates/bulgarian/)
-- `Bulgarian_VIP1.png`
-- `Bulgarian_VIP2.png`
-- `Bulgarian_VIP3.png`
-- `Bulgarian_VIP4.png`
-- `Bulgarian_VIP5.png`
-
-### 罗马尼亚语模板 (templates/romanian/)
-- `Romanian_VIP1.png`
-- `Romanian_VIP2.png`
-- `Romanian_VIP3.png`
-- `Romanian_VIP4.png`
-- `Romanian_VIP5.png`
+- `templates/english/English_VIP3.png`
+- `templates/arabic/Arabic_VIP5.png`
+- `templates/georgian/Georgian_VIP1.png`
+- `templates/french_half/FrenchHalf_VIP2.png`
+- `templates/signal_rewards/Signal_English.png`
 
 ## 📋 使用说明
 
 ### 1. 准备模板文件
 - 将你的证书模板图片按照上述命名规范放入对应的文件夹
-- 图片格式建议使用PNG格式，尺寸为1280x800像素
+- 图片格式建议使用PNG格式，尺寸为1152x2048像素
 - 如果某个模板文件不存在，系统会显示默认模板
 
 ### 2. 打开应用
@@ -114,9 +69,9 @@ DCG v2.0/
 1. **选择模板**: 点击左侧面板选择语言和VIP等级
 2. **上传头像**: 点击"上传头像"按钮选择头像图片
 3. **输入信息**: 填写姓名和UID
-4. **调整位置**: 拖拽头像、姓名、UID到合适位置
-5. **调整大小**: 使用放大/缩小按钮调整字体和头像大小
-6. **下载证书**: 点击"下载证书"按钮保存图片
+4. **调整框体**: 拖拽头像框、姓名框、UID框到合适位置，坐标实时显示
+5. **缩放内容**: 使用放大/缩小按钮独立调整头像、姓名、UID大小
+6. **下载证书**: 点击"下载证书"按钮保存图片（导出时自动隐藏辅助框）
 
 ## 🛠️ 技术特点
 
@@ -133,21 +88,21 @@ DCG v2.0/
 
 ```javascript
 // 位置和大小参数
-this.avatarX = 77;        // 头像X坐标
-this.avatarY = 188;       // 头像Y坐标
-this.avatarSize = 240;    // 头像大小
-this.nameX = 405;         // 姓名X坐标
-this.nameY = 199;         // 姓名Y坐标
-this.nameSize = 72;       // 姓名字体大小
-this.uidX = 140;          // UID X坐标
-this.uidY = 481;          // UID Y坐标
-this.uidSize = 40;        // UID字体大小
+this.avatarX = 81;        // 头像X坐标
+this.avatarY = 665;       // 头像Y坐标
+this.avatarSize = 290;    // 头像大小
+this.nameX = 618;         // 姓名X坐标（水平居中参考点）
+this.nameY = 751;         // 姓名Y坐标
+this.nameSize = 66;       // 姓名字体大小
+this.uidX = 843;          // UID X坐标
+this.uidY = 780;          // UID Y坐标
+this.uidSize = 46;        // UID字体大小
 ```
 
-### 添加新语言
-1. 在 `templates` 对象中添加新的语言配置
-2. 创建对应的文件夹和模板文件
-3. 在HTML中添加新的国家选择区域
+### 添加新语言或特殊模板
+1. 在 `templates` 对象中添加新的语言或模板组配置
+2. 创建对应的文件夹和模板文件（信号模板命名格式 `Signal_<语言>.png`）
+3. 在HTML中添加新的国家/组选择区域及按钮
 
 ## 📞 支持
 
