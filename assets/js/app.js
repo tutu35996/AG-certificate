@@ -76,6 +76,10 @@ class CertificateGenerator {
     this.uidX = 843;
     this.uidY = 780;
     this.uidSize = 46;
+    this.avatarDefaults = {
+      standard: { x: 81, y: 665, size: 290 },
+      signal: { x: 96, y: 685, size: 290 }
+    };
     this.uidDefaults = {
       standard: { x: 843, y: 780, size: 46 },
       signal: { x: 843, y: 795, size: 54 }
@@ -239,10 +243,19 @@ class CertificateGenerator {
   
   applyTemplateDefaults() {
     if (this.currentCountry === 'signal_rewards') {
+      this.setAvatarDefaults(this.avatarDefaults.signal);
       this.setUidDefaults(this.uidDefaults.signal);
     } else {
+      this.setAvatarDefaults(this.avatarDefaults.standard);
       this.setUidDefaults(this.uidDefaults.standard);
     }
+  }
+
+  setAvatarDefaults(config) {
+    if (!config) return;
+    this.avatarX = config.x;
+    this.avatarY = config.y;
+    this.avatarSize = config.size;
   }
 
   setUidDefaults(config) {
@@ -398,7 +411,7 @@ class CertificateGenerator {
 
     // 绘制 UID：白色字体 + 黑色阴影
     this.ctx.save();
-    this.ctx.font = this.getFont(this.uidSize);
+    this.ctx.font = this.getUidFont(this.uidSize);
     this.ctx.fillStyle = "white";
     this.ctx.shadowColor = "black";
     this.ctx.shadowOffsetX = 3;
@@ -472,7 +485,7 @@ class CertificateGenerator {
     this.ctx.font = this.getFont(this.nameSize);
     const nameWidth = this.ctx.measureText(this.nameInput.value || '姓名').width;
     const nameHalf = nameWidth / 2;
-    this.ctx.font = this.getFont(this.uidSize);
+    this.ctx.font = this.getUidFont(this.uidSize);
     const uidWidth = this.ctx.measureText(this.uidInput.value).width || 50; // 如果为空，给一个默认宽度
     
     // 检查姓名区域
@@ -577,7 +590,7 @@ class CertificateGenerator {
     const isName = type === 'name';
     const fontSize = isName ? this.nameSize : this.uidSize;
     const value = isName ? (this.nameInput.value || '姓名') : (this.uidInput.value || 'UID');
-    this.ctx.font = this.getFont(fontSize);
+    this.ctx.font = this.getUidFont(fontSize);
     const width = Math.max(this.ctx.measureText(value).width, 120);
     const halfWidth = width / 2;
     const maxX = this.canvas.width - width - padding;
@@ -609,7 +622,11 @@ class CertificateGenerator {
   }
 
   getFont(size) {
-    return `${size}px "${this.fontFamily}", sans-serif`;
+    return `${size}px "${this.fontFamily}", "TheSeasonsItalic", "TheSeasonsLight", Arial, sans-serif`;
+  }
+
+  getUidFont(size) {
+    return `${size}px Arial, sans-serif`;
   }
 
   getDownloadFilename() {
